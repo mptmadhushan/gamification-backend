@@ -4,7 +4,7 @@ const Item = db.leaderBoard;
 exports.create = async (req, res) => {
   const data = {
     userId: req.body.userId,
-    points: req.body.points,
+    rewards: req.body.points,
   };
 
   // Save data in the database

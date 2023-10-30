@@ -25,13 +25,13 @@ exports.signup = (req, res) => {
           },
         }).then((roles) => {
           user.setRoles(roles).then(() => {
-            res.send({ message: "User was registered successfully!" });
+            res.send({ message: "User was registered successfully!", user:user });
           });
         });
       } else {
         // user role = 1
         user.setRoles([1]).then(() => {
-          res.send({ message: "User was registered successfully!" });
+          res.send({ message: "User was registered successfully!", user:user });
         });
       }
     })
@@ -43,7 +43,7 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
   User.findOne({
     where: {
-      username: req.body.username,
+      email: req.body.email,
     },
   })
     .then((user) => {

@@ -1,11 +1,14 @@
 
 const db = require("../models");
-const Item = db.course;
+const Item = db.quiz;
 
 exports.create = async (req, res) => {
   const data = {
     quiz: req.body.labels,
     subject: req.body.datasets,
+    answer:req.body.answer,
+    answertwo :req.body.answertwo,
+    labelstwo : req.body.labelstwo
   };
 
   // Save data in the database

@@ -7,7 +7,7 @@ const Role = db.role;
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8088",
+  origin: "http://localhost:3000",
 };
 app.use(cors(corsOptions));
 
@@ -23,7 +23,7 @@ require("./app/routes/leaderBoard.routes")(app);
 app.use(bodyParser.urlencoded({ extended: true }));
 db.sequelize.sync({ force: false }).then(() => {
   console.log("Drop and Resync Db");
-  // initial();
+ // initial();
 });
 function initial() {
   Role.create({
