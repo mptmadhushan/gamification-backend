@@ -24,6 +24,7 @@ db.role = require("./role.model.js")(sequelize, Sequelize);
 db.quiz = require("./quiz.model.js")(sequelize, Sequelize);
 db.assessment = require("./assessment.model.js")(sequelize, Sequelize);
 db.leaderBoard = require("./leaderboard.model.js")(sequelize, Sequelize);
+db.course = require("./course.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",

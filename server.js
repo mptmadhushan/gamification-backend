@@ -18,12 +18,13 @@ require("./app/routes/user.routes")(app);
 require("./app/routes/quiz.routes")(app);
 require("./app/routes/assessment.routes")(app);
 require("./app/routes/leaderBoard.routes")(app);
+require("./app/routes/course.routes")(app);
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 db.sequelize.sync({ force: false }).then(() => {
   console.log("Drop and Resync Db");
- // initial();
+//  initial();
 });
 function initial() {
   Role.create({

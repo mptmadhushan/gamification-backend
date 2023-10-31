@@ -1,7 +1,7 @@
 module.exports = {
-  HOST: "db4free.net",
-  USER: "gamification_123",
-  PASSWORD: "12345678",
+  HOST: "localhost",
+  USER: "root",
+  PASSWORD: "",
   DB: "gamification_123",
   dialect: "mysql",
   pool: {
