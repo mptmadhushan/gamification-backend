@@ -27,10 +27,30 @@ module.exports = (sequelize, Sequelize) => {
         Link: {
             type: Sequelize.STRING,
         },
-        CourseMainImg:{
+        CourseMainImg: {
             type: Sequelize.STRING,
         },
-
+        courseStatus: {
+            type: Sequelize.STRING,
+            defaultValue: 'unlocked',
+        },
+        lessionStatus: {
+            type: Sequelize.STRING,
+            defaultValue: 'locked',
+        },
+        partStatus: {
+            type: Sequelize.STRING,
+            defaultValue: 'locked',
+        },
     });
+
+    // Set default values to 'unlocked' for LessionNumber and PartNumber equal to 1
+    Course.beforeCreate((course) => {
+        if (course.LessionNumber === '1' && course.PartNumber === '1') {
+            course.lessionStatus = 'unlocked';
+            course.partStatus = 'unlocked';
+        }
+    });
+
     return Course;
 };

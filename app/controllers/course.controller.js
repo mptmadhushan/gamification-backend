@@ -111,13 +111,13 @@ exports.update = (req, res) => {
                 return res.status(404).send({ message: "Course not found" });
             }
 
-            const updatedData = {
-                CourseTitle: req.body.CourseTitle,
-                LessionNumber: req.body.LessionNumber,
-                PartNumber: req.body.PartNumber,
-            };
+            // const updatedData = {
+            //     CourseTitle: req.body.CourseTitle,
+            //     LessionNumber: req.body.LessionNumber,
+            //     PartNumber: req.body.PartNumber,
+            // };
 
-            Course.update(updatedData, {
+            Course.update(req.body, {
                 where: { id: courseId }
             })
                 .then(() => {
