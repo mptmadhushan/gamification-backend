@@ -22,13 +22,13 @@ exports.updateLPR = (req, res) => {
   const id = req.params.id;
   user.findByPk(id)
     .then((user) => {
-      if (!user) { // Change from !id to !user
+      if (!user) {
         return res.status(404).send({ message: "User not found" });
       }
 
       const data = {
         level: req.body.level,
-        points: req.body.points,
+        points: user.points + req.body.points, // Increase points by the value in req.body.points
         rewards: req.body.rewards,
       };
 
@@ -45,6 +45,7 @@ exports.updateLPR = (req, res) => {
         });
     });
 };
+
 
 
 
