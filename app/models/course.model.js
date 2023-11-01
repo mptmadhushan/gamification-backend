@@ -26,7 +26,10 @@ module.exports = (sequelize, Sequelize) => {
         },
         Link: {
             type: Sequelize.STRING,
-        }
+        },
+        CourseMainImg:{
+            type: Sequelize.STRING,
+        },
 
     });
     return Course;

@@ -19,6 +19,7 @@ require("./app/routes/quiz.routes")(app);
 require("./app/routes/assessment.routes")(app);
 require("./app/routes/leaderBoard.routes")(app);
 require("./app/routes/course.routes")(app);
+require("./app/routes/assignmentQuizes.routes")(app);
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));

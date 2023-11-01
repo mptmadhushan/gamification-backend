@@ -5,6 +5,7 @@ exports.create = async (req, res) => {
     const data = {
         CourseCode: req.body.CourseCode,
         CourseTitle: req.body.CourseTitle,
+        CourseMainImg: req.body.CourseMainImg,
         LessionNumber: req.body.LessionNumber,
         PartNumber: req.body.PartNumber,
         LessionTitle: req.body.LessionTitle,
@@ -28,36 +29,61 @@ exports.create = async (req, res) => {
 
 exports.findAll = (req, res) => {
     Course.findAll()
-      .then((courses) => {
-        // Create an object to store courses grouped by CourseCode
-        const courseByCode = {};
-  
-        // Group courses by CourseCode
-        courses.forEach((course) => {
-          const courseCode = course.CourseCode;
-          if (!courseByCode[courseCode]) {
-            courseByCode[courseCode] = [];
-          }
-          courseByCode[courseCode].push(course);
+        .then((courses) => {
+            // Create an object to store courses grouped by CourseCode
+            const courseByCode = {};
+
+            // Group courses by CourseCode
+            courses.forEach((course) => {
+                const courseCode = course.CourseCode;
+                if (!courseByCode[courseCode]) {
+                    courseByCode[courseCode] = {
+                        CourseCode: courseCode,
+                        CourseMainImg: course.CourseMainImg,
+                        CourseTitle: course.CourseTitle,
+                        Courses: [],
+                    };
+                }
+                courseByCode[courseCode].Courses.push(course);
+            });
+
+            // Categorize PartNumbers for each LessionNumber within Courses
+            for (const courseCode in courseByCode) {
+                const courses = courseByCode[courseCode].Courses;
+                const categorizedCourses = courses.reduce((result, course) => {
+                    const { LessionNumber, PartNumber } = course;
+                    let existingCategory = result.find((category) => category.LessionNumber === LessionNumber);
+                    if (!existingCategory) {
+                        existingCategory = {
+                            LessionNumber,
+                            Parts: [],
+                        };
+                        result.push(existingCategory);
+                    }
+                    const partCategory = existingCategory.Parts.find((part) => part.PartNumber === PartNumber);
+                    if (partCategory) {
+                        partCategory.data.push(course);
+                    } else {
+                        existingCategory.Parts.push({ PartNumber, data: [course] });
+                    }
+                    return result;
+                }, []);
+                courseByCode[courseCode].Courses = categorizedCourses;
+            }
+
+            // Convert the grouped courses to an array
+            const groupedCourses = Object.values(courseByCode);
+
+            res.send(groupedCourses);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving courses.",
+            });
         });
-  
-        // Convert the grouped courses to an array
-        const groupedCourses = Object.keys(courseByCode).map((courseCode) => {
-          return {
-            CourseCode: courseCode,
-            Courses: courseByCode[courseCode],
-          };
-        });
-  
-        res.send(groupedCourses);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message || "Some error occurred while retrieving courses.",
-        });
-      });
-  };
-  
+};
+
+
 
 exports.findOne = (req, res) => {
     const courseId = req.params.id;
