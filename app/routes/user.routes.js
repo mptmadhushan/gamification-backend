@@ -25,4 +25,7 @@ module.exports = function (app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.adminBoard
   );
+
+  app.put("/api/userLPR/:id", controller.updateLPR);
+  app.get("/api/userLPR/:id", controller.getLPR);
 };
