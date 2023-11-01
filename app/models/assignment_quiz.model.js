@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const quiz = sequelize.define("assignment_quiz", {
+  const assignment_quiz = sequelize.define("assignment_quiz", {
     quiz: {
       type: DataTypes.STRING,
     },
@@ -15,7 +15,13 @@ module.exports = (sequelize, DataTypes) => {
     answertwo : {
       type: DataTypes.STRING,
     },
+    CourseCode : {
+      type: DataTypes.STRING,
+    },
+    LessionNumber : {
+      type: DataTypes.STRING,
+    },
   });
 
-  return quiz;
+  return assignment_quiz;
 };

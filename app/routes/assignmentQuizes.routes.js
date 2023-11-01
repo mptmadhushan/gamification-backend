@@ -8,11 +8,11 @@ module.exports = (app) => {
 
   app.get("/api/assignementQuizes/", items.findAll);
 
-  app.get("/api/assignementQuizes/:id", items.findOne);
+  // app.get("/api/assignementQuizes/:id", items.findOne);
   
-  app.put("/api/assignementQuizes/:id", items.update);
+  // app.put("/api/assignementQuizes/:id", items.update);
 
-  app.delete("/api/assignementQuizes/:id", items.delete);
+  // app.delete("/api/assignementQuizes/:id", items.delete);
 
 
 };
